@@ -1,10 +1,31 @@
 package edu.handong.csee.java.Chatcounter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class DataReader {
 
+	public static void main(String[] args) throws IOException 
+	{
+		Scanner myscanner = new Scanner(System.in);
+		System.out.print("Input the absolute directory that you want: ");
+		String r1 = myscanner.next();
+		String result = "";
+		
+		DataReader mydata = new DataReader();
+		ArrayList<String> r2 = mydata.getdata(r1);
+		File myDir = mydata.getDirectory(r1);
+		File[] files = mydata.getListOffilesFromDirectory(myDir);
+	
+		
+		
+		
+	}
+	
 	public ArrayList<String> getdata(String strDir)
 	{
 		// 1. get directory. 
@@ -15,6 +36,7 @@ public class DataReader {
 		ArrayList<String> messages = readFiles(files);
 		return messages;
 	}
+	
 	public File getDirectory(String strDir)
 	{
 		File myDirectory = new File(strDir);
@@ -29,8 +51,15 @@ public class DataReader {
 	public ArrayList<String> readFiles(File[] files)
 	{
 		ArrayList<String> message = new ArrayList<String>();
+		int i = 0;
+		while(i < files.length)
+		{
+			message.add(files[i].getName());
+			i++;
+		}
 		
 		return message;
 
-		}
+	}
+	
 }
