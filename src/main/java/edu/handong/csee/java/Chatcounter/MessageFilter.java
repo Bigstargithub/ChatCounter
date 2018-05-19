@@ -11,6 +11,7 @@ public class MessageFilter {
 		if(data instanceof DataReaderForCSV)
 		{
 			DataReaderForCSV dataforcsv = new DataReaderForCSV();
+			
 		}
 		
 		else if (data instanceof DataReaderForTXT)

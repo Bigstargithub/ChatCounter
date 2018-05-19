@@ -11,7 +11,7 @@ public class DataReaderForCSV extends DataReader
 	
 	public void readcsv(String r2) throws FileNotFoundException
 	{
-	  try 
+	  try
 	  {
 		  
 	  }

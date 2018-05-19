@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class DataReader {
 
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args)
 	{
 		Scanner myscanner = new Scanner(System.in);
 		System.out.print("Input the absolute directory that you want: ");
@@ -18,10 +18,6 @@ public class DataReader {
 		
 		DataReader mydata = new DataReader();
 		ArrayList<String> r2 = mydata.getdata(r1);
-		File myDir = mydata.getDirectory(r1);
-		File[] files = mydata.getListOffilesFromDirectory(myDir);
-	
-		
 		
 		
 	}
