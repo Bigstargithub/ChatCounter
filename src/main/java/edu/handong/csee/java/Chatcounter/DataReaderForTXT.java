@@ -13,10 +13,11 @@ import java.util.HashMap;
 
 public class DataReaderForTXT extends DataReader{
 
-	int count = 0;
+	int[] count = new int[50];
+	
 	public String[] readtxt(String r1) throws IOException 
 	{
-	  String[] name = new String[200];
+	  String[] name = new String[160];
 	  try
 	  {
 		 File file = new File(r1);
@@ -31,11 +32,20 @@ public class DataReaderForTXT extends DataReader{
 		 while((Line = br.readLine()) != null)
 		 {
 			name[i] = nametxt(Line);
+			names3[i] = name[i];
+			//System.out.println(names3[i]);
+			
 			i++;
 		 }
 		 
+		 for(int f =0 ; f <names3.length;f++)
+		 {
+			 //System.out.println(names3[f]);
+			 //counttxt(names3[f]);
+		 }
 		 br.close();
 	  }
+	  
 	  
 	  catch(FileNotFoundException e)
 	  {
@@ -66,10 +76,6 @@ public class DataReaderForTXT extends DataReader{
 		else return null;
 	}
 	
-	public HashMap<String, Integer> Countertxt()
-	{
-		HashMap<String, Integer> Count = new HashMap<String, Integer>();
-	    
-		return Count;
-	}
+	
+	
 }

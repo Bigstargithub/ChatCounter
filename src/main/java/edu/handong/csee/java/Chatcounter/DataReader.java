@@ -10,9 +10,10 @@ import java.io.IOException;
 
 public class DataReader {
 
-	ArrayList<String> names = new ArrayList();
-	ArrayList<String> names2 = new ArrayList();
-	
+	static ArrayList<String> names = new ArrayList();
+	static ArrayList<String> names2 = new ArrayList();
+	int[] count = new int[40];
+	String[] names3 = new String[200];
 	public static void main(String[] args) throws IOException
 	{
 		DataReader data = new DataReader();
@@ -21,7 +22,7 @@ public class DataReader {
 	
 	public void run() throws IOException
 	{
-		ArrayList<String[]> csvdata = new ArrayList();
+		ArrayList<String> csvdata = new ArrayList();
 		Scanner myscanner = new Scanner(System.in);
 		System.out.print("Input the absolute directory that you want: ");
 		String r1 = myscanner.next();
@@ -36,16 +37,31 @@ public class DataReader {
 		DataReaderForTXT datafortxt = new DataReaderForTXT();
 		DataReaderForCSV dataforcsv = new DataReaderForCSV();
 		
-		 
+		
+		
 		for(int i = 0; i < r2.size(); i++)
 		{
 			String r3 = r2.get(i).substring(r2.get(i).length()-3, r2.get(i).length());
 			//System.out.println(r3);
 			if(r3.equals("txt"))
 			{
+				System.out.println(r2.get(i));
 				File file = new File(r2.get(i));
 				//System.out.println(r2.get(i));
-				datafortxt.readtxt(file.getPath());
+				names3 = datafortxt.readtxt(file.getPath());
+				messagefilt.WhatFiles(datafortxt);
+				//System.out.println(names3[0]);
+				//System.out.println(names2.size());
+				for(int f = 0; f<names3.length; f++)
+				{
+					count = messagefilt.counttxt(names3[f]);
+					//System.out.println(count);
+				}
+				
+				for(int g = 0 ; g <count.length;g++)
+				{
+					System.out.println(count[g]);
+				}
 			}
 			
 			if(r3.equals("csv"))
@@ -53,27 +69,23 @@ public class DataReader {
 				System.out.println(r2.get(i));
 				File file = new File(r2.get(i));
 				csvdata = dataforcsv.readcsv(file.getPath());
-				Iterator<String[]> it = csvdata.iterator();
+				Iterator<String> it = csvdata.iterator();
 			     
 				 while(it.hasNext())
 				{
-					String[] array = (String[]) it.next();
-					for(String s : array)
-					{
-						System.out.print(s+ "");
-					}
-					System.out.print("\n");
+					String array = (String) it.next();
 				}
 				
 				//dataforcsv.readcsv(file.getPath());
+				 //System.out.println(csvdata);
 			}
 			
 		}
 		
-		messagefilt.WhatFiles(datafortxt);
 		
 		
 	}
+	
 	public ArrayList<String> getdata(String strDir)
 	{
 		// 1. get directory. 
