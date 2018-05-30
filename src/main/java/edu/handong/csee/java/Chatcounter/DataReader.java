@@ -3,7 +3,9 @@ package edu.handong.csee.java.Chatcounter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,7 +15,12 @@ public class DataReader {
 	static ArrayList<String> names = new ArrayList();
 	static ArrayList<String> names2 = new ArrayList();
 	int[] count = new int[40];
-	String[] names3 = new String[200];
+	String[] names3 = new String[1000];
+	String[] data3 = new String[200];
+	String[] message3 = new String[200];
+	static HashMap<String, ArrayList<String>> Chatmessage = new HashMap<String,ArrayList<String>>();
+	int b;
+	int a;
 	public static void main(String[] args) throws IOException
 	{
 		DataReader data = new DataReader();
@@ -47,43 +54,51 @@ public class DataReader {
 			{
 				System.out.println(r2.get(i));
 				File file = new File(r2.get(i));
-				//System.out.println(r2.get(i));
 				names3 = datafortxt.readtxt(file.getPath());
 				messagefilt.WhatFiles(datafortxt);
+				for(int a = 0; a<names2.size();a++)
+				{
+				 if(!Chatmessage.containsKey(names2.get(a)))
+				  {
+					Chatmessage.put(names2.get(a),datafortxt.messagelisttxt);
+				  }
+				 
+				}
+				
+				
 				//System.out.println(names3[0]);
 				//System.out.println(names2.size());
 				for(int f = 0; f<names3.length; f++)
 				{
+					//System.out.println(names3[f]);
 					count = messagefilt.counttxt(names3[f]);
 					//System.out.println(count);
 				}
 				
-				for(int g = 0 ; g <count.length;g++)
-				{
-					System.out.println(count[g]);
-				}
+				
 			}
 			
 			if(r3.equals("csv"))
 			{
 				System.out.println(r2.get(i));
 				File file = new File(r2.get(i));
-				csvdata = dataforcsv.readcsv(file.getPath());
-				Iterator<String> it = csvdata.iterator();
-			     
-				 while(it.hasNext())
-				{
-					String array = (String) it.next();
-				}
-				
-				//dataforcsv.readcsv(file.getPath());
-				 //System.out.println(csvdata);
+			    dataforcsv.readcsv(file.getPath());
+			    messagefilt.WhatFiles(dataforcsv);
+			    dataforcsv.addHashmap();
+			  }
+			  
 			}
+			 
 			
+		
+		for(int g = 0 ; g <names2.size();g++)
+		{
+			//System.out.println(Chatmessage);
 		}
+		System.out.println();
 		
 		
-		
+	  //System.out.println(Chatmessage);
 	}
 	
 	public ArrayList<String> getdata(String strDir)

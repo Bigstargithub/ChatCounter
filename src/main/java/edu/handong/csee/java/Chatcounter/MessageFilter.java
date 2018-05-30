@@ -2,10 +2,14 @@ package edu.handong.csee.java.Chatcounter;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class MessageFilter extends DataReader{
 	
 	DataReader data = new DataReader();
+	
 	public static void WhatFiles(DataReader data) throws FileNotFoundException
 	{
 		int n;
@@ -13,17 +17,44 @@ public class MessageFilter extends DataReader{
 		if(data instanceof DataReaderForCSV)
 		{
 			DataReaderForCSV dataforcsv = new DataReaderForCSV();
+			if(names2.size() == 0)
+			{
+				data.names2.add(dataforcsv.user.get(0));
+			}
 			while(true)
 			{
-			  
+				String a = dataforcsv.user.get(N);
+		    	for(n=0;n<=data.names2.size()-1;n++)
+		    	{
+		    		if(a.equals(data.names2.get(n)))
+		    		{
+		    		  break;
+		    		}
+		    	}
+		    	
+		    	if(n>=names2.size())
+		    	{
+		    	  names2.add(dataforcsv.user.get(N));
+		    	}
+		    	N++;
+		    	//System.out.println(names2);
+		    	if(N>=dataforcsv.user.size()) break;
 			}
+			
+			
+			
+			
+			
 		}
 		
 		else if (data instanceof DataReaderForTXT)
 		{
 			
 			DataReaderForTXT d2 = new DataReaderForTXT();
-		    data.names2.add(data.names.get(0));
+			if(names2.size() == 0)
+			{
+		     data.names2.add(data.names.get(0));
+			}
 		     while(true)
 		     {
 		    	String a = data.names.get(N);
@@ -33,7 +64,7 @@ public class MessageFilter extends DataReader{
 		    		{
 		    		  break;
 		    		}
-		    	
+		    	    
 		    	}
 		    	
 		    	if(n>=names2.size())
@@ -44,13 +75,19 @@ public class MessageFilter extends DataReader{
 		    	N++;
 		    	if(N>=data.names.size()) break;
 		      }
-		     System.out.println(names2);
+		     
+		     
+		     //System.out.println(names2);
 		     //System.out.println(names2.size());
 		 }
 		    
 			
 		}
-	 
+	
+	public HashMap<String,ArrayList<String>> putdata()
+	{
+		return null;
+	}
 	public int[] counttxt(String a)
 	{
 		try
