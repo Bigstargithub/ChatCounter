@@ -28,7 +28,7 @@ public class DataReaderForCSV extends DataReader
 	 static ArrayList<String> date = new ArrayList<String>();
 	 static ArrayList<String> user = new ArrayList<String>();
 	 static ArrayList<String> strMessage = new ArrayList<String>();
-	 static ArrayList<String> listentry = new ArrayList<String>();
+	 
 	 int i = 0;
 	 int c;
 	public void readcsv(String r2) throws IOException 
@@ -44,7 +44,7 @@ public class DataReaderForCSV extends DataReader
 		 
 		 for(CSVRecord record : records)
 		 {
-			 date.add(record.get(0).substring(11,16)) ;
+			 date.add(record.get(0).substring(11,19)) ;
 			 user.add(record.get(1));
 			 strMessage.add(record.get(2));
 		 }
@@ -123,11 +123,11 @@ public class DataReaderForCSV extends DataReader
 	public void addHashmap()
 	{
 		
-		for(int a = 0; a<names2.size()-1;a++)
+		for(int a = 0; a<names2.size();a++)
 		{
 		 if(!Chatmessage.containsKey(names2.get(a)))
 		  {
-			Chatmessage.put(names2.get(a),messagelistcsv);
+			Chatmessage.put(names2.get(a), new ArrayList<String>());
 		  }
 		}
 		Iterator iterator = Chatmessage.entrySet().iterator();
@@ -141,7 +141,7 @@ public class DataReaderForCSV extends DataReader
 		i = 0;
 	   for(i = 0 ; i<user.size();i++)
 	   {
-		 for(int b = 0; b<Chatmessage.size();b++)
+		 for(int b = 0; b<listentry.size();b++)
 		 {
 			if(user.get(i).equals(listentry.get(b)))
             {  
@@ -156,12 +156,12 @@ public class DataReaderForCSV extends DataReader
 			   {
 				   Chatmessage.get(listentry.get(b)).add(messagecsv(date.get(i),strMessage.get(i)));
 			   }
-			   System.out.println(Chatmessage);
+			   //System.out.println(Chatmessage);
             }
 		 }	
 	   }
 			  
-		System.out.println(Chatmessage);	  
+		//System.out.println(listentry);	  
      } 
 			
 	    

@@ -24,7 +24,7 @@ public class MessageFilter extends DataReader{
 			while(true)
 			{
 				String a = dataforcsv.user.get(N);
-		    	for(n=0;n<=data.names2.size()-1;n++)
+		    	for(n=0;n<data.names2.size();n++)
 		    	{
 		    		if(a.equals(data.names2.get(n)))
 		    		{
@@ -58,7 +58,7 @@ public class MessageFilter extends DataReader{
 		     while(true)
 		     {
 		    	String a = data.names.get(N);
-		    	for(n=0;n<=data.names2.size()-1;n++)
+		    	for(n=0;n<data.names2.size();n++)
 		    	{
 		    		if(a.equals(data.names2.get(n)))
 		    		{
