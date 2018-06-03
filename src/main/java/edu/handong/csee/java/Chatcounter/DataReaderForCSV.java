@@ -49,25 +49,12 @@ public class DataReaderForCSV extends DataReader
 			 strMessage.add(record.get(2));
 		 }
 			    
-			  //for(a=0;a<user.size();a++)
-			  //{
-				//if(Chatmessage.get(user.get(a)).size() == 0 )
-				//{
-			//Chatmessage.get(user.get(a)).add(messagecsv(date.get(a),strMessage.get(a)));
-				//}
 				
 			 namearraycsv.add(user.get(i));
 			 messagearraycsv.add(messagecsv(date.get(i),strMessage.get(i)));
 			
 			 i++;
 			 
-		 //}
-		 
-		 
-		 for(int h = 0 ;h<messagearraycsv.size();h++)
-		 {
-		  //System.out.println(messagearraycsv.get(h));
-		 }
 		    
 		 
 	  }
@@ -92,7 +79,6 @@ public class DataReaderForCSV extends DataReader
  		if(m.find())
  		 {
 		  name = m.group(7);
-		  //System.out.println(name);
 		  names.add(name);
  		 }
  		System.out.println(name);
@@ -156,12 +142,11 @@ public class DataReaderForCSV extends DataReader
 			   {
 				   Chatmessage.get(listentry.get(b)).add(messagecsv(date.get(i),strMessage.get(i)));
 			   }
-			   //System.out.println(Chatmessage);
+			   
             }
 		 }	
 	   }
-			  
-		//System.out.println(listentry);	  
+	  
      } 
 			
 	    

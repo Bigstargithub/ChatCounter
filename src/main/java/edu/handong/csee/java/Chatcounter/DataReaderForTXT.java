@@ -202,7 +202,6 @@ public class DataReaderForTXT extends DataReader {
 	}
 
 	public void addHashMaptxt() {
-		System.out.println(listentry);
 		for (int a = 0; a < names.size(); a++) {
 			if (!Chatmessage.containsKey(names.get(a))) {
 				Chatmessage.put(names.get(a), new ArrayList<String>());
@@ -210,13 +209,11 @@ public class DataReaderForTXT extends DataReader {
 			}
 		}
 
-		// System.out.println(names);
 
 		for (i = 0; i < names.size(); i++) {
 			for (b = 0; b < listentry.size(); b++) {
 				if (names.get(i).equals(listentry.get(b))) {
 					for (c = 0; c < Chatmessage.get(listentry.get(b)).size(); c++) {
-						// System.out.println(changecsvtxt(Chatmessage.get(listentry.get(b)).get(c)));
 						if (changecsvtxt(Chatmessage.get(listentry.get(b)).get(c))
 								.equals(messagetxt(datetxt(datefortxt.get(i)), strMessagefortxt.get(i)))) {
 							break;
@@ -225,16 +222,12 @@ public class DataReaderForTXT extends DataReader {
 
 					if (c >= Chatmessage.get(listentry.get(b)).size()) 
 					{
-
 						Chatmessage.get(names.get(i)).add(messagetxt(datetxt(datefortxt.get(i)), strMessagefortxt.get(i)));
-						System.out.println(messagetxt(datetxt(datefortxt.get(i)), strMessagefortxt.get(i)));
 						break;
 					}
-					// System.out.println(Chatmessage);
 				}
 
 			}
-			// System.out.println(listentry.get(b));
 		}
 	}
 

@@ -37,7 +37,6 @@ public class MessageFilter extends DataReader{
 		    	  names2.add(dataforcsv.user.get(N));
 		    	}
 		    	N++;
-		    	//System.out.println(names2);
 		    	if(N>=dataforcsv.user.size()) break;
 			}
 			
@@ -77,45 +76,11 @@ public class MessageFilter extends DataReader{
 		      }
 		     
 		     
-		     //System.out.println(names2);
-		     //System.out.println(names2.size());
 		 }
 		    
 			
-		}
+	}
 	
-	public HashMap<String,ArrayList<String>> putdata()
-	{
-		return null;
-	}
-	public int[] counttxt(String a)
-	{
-		try
-		{
-			for(int i = 0; i < names2.size();i++)
-			{
-				//System.out.println(data.names2.get(i));
-				//System.out.println(a);
-				if(a.equals(null))
-				{
-					break;
-				}
-				
-				if(a.equals(names2.get(i)))
-				{
-					
-					count[i] = count[i] + 1;
-					break;
-				}
-			}
-		}
-		
-		catch(NullPointerException e)
-		{
-			
-		}
-		
-		return count;
-	}
+	
 }
 
