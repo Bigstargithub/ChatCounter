@@ -19,22 +19,39 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.*;
 
+/**
+ * This is public class, DataReaderForTXT. This class will read the chat in txt
+ * file. And the name and message will save the hashmap.
+ * 
+ * @author Bigstar.
+ *
+ */
 public class DataReaderForTXT extends DataReader {
 
-	int[] count = new int[50];
-	String date;
-	String message;
-	String currentstate;
-	String currenthour;
-	String currentminute;
-	static ArrayList<String> messagelisttxt = new ArrayList<String>();
-	static ArrayList<String> datefortxt = new ArrayList<String>();
-	static ArrayList<String> userfortxt = new ArrayList<String>();
-	static ArrayList<String> strMessagefortxt = new ArrayList<String>();
+	String date; // date in txt file.
+	String message; // message in txt file.
+	String currentstate; // current state in txt file(currentstate)
+	String currenthour; // current hour in txt file(currenthour)
+	String currentminute; // current minute in txt file(currentminute)
+	static ArrayList<String> messagelisttxt = new ArrayList<String>(); // add ArrayList to the message in txt file(
+																		// messagelisttxt)
+	static ArrayList<String> datefortxt = new ArrayList<String>(); // add ArrayList to the date in txt file(
+																	// datelisttxt)
+	static ArrayList<String> userfortxt = new ArrayList<String>(); // add ArrayList to the name in txt file(
+																	// messagelisttxt)
+	static ArrayList<String> strMessagefortxt = new ArrayList<String>(); // add ArrayList to the message in txt file(
+																			// messagelisttxt)
 	int i = 0;
 	int c = 0;
 	int b = 0;
 
+	/**
+	 * This is a readtxt method.</br>
+	 * This method read the txt file
+	 * 
+	 * @param r1
+	 * @throws IOException
+	 */
 	public void readtxt(String r1) throws IOException {
 		String[] namestxt = new String[1000];
 		try {
@@ -95,6 +112,13 @@ public class DataReaderForTXT extends DataReader {
 		}
 	}
 
+	/**
+	 * This is nametxt method.</br>
+	 * This method return name variable.(String)
+	 * 
+	 * @param Line
+	 * @return
+	 */
 	public String nametxt(String Line) {
 		try {
 
@@ -131,6 +155,15 @@ public class DataReaderForTXT extends DataReader {
 		return message;
 	}
 
+	/**
+	 * This method is datetxt method.</br>
+	 * This method return the time.</br>
+	 * If the state is "오후", the time is added by 12 but if the state is "오전",
+	 * nothing changes.
+	 * 
+	 * @param Line
+	 * @return
+	 */
 	public String datetxt(String Line) {
 		try {
 
@@ -166,6 +199,18 @@ public class DataReaderForTXT extends DataReader {
 		return currenthour;
 	}
 
+	/**
+	 * This is changetime method.</br>
+	 * This method return time variable.</br>
+	 * If the time is "12", time is "00". and if the time is "24", time is
+	 * "12".</br>
+	 * Also, if the number is larger than 0 and less than 9, time is "0" and
+	 * digit.</br>
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public String changetime(int a, String b) {
 		String time;
 		if (a == 12) {
@@ -186,6 +231,14 @@ public class DataReaderForTXT extends DataReader {
 		return time;
 	}
 
+	/**
+	 * This is messagetxt method.</br>
+	 * This method returns revised message.</br>
+	 * 
+	 * @param time
+	 * @param message
+	 * @return
+	 */
 	public String messagetxt(String time, String message) {
 		try {
 			if (message.equals("사진")) {
@@ -201,6 +254,9 @@ public class DataReaderForTXT extends DataReader {
 		return message;
 	}
 
+	/**
+	 * This method will add message to HashMap(Chatmessage).
+	 */
 	public void addHashMaptxt() {
 		for (int a = 0; a < names.size(); a++) {
 			if (!Chatmessage.containsKey(names.get(a))) {
@@ -208,7 +264,6 @@ public class DataReaderForTXT extends DataReader {
 				listentry.add(names.get(a));
 			}
 		}
-
 
 		for (i = 0; i < names.size(); i++) {
 			for (b = 0; b < listentry.size(); b++) {
@@ -220,9 +275,9 @@ public class DataReaderForTXT extends DataReader {
 						}
 					}
 
-					if (c >= Chatmessage.get(listentry.get(b)).size()) 
-					{
-						Chatmessage.get(names.get(i)).add(messagetxt(datetxt(datefortxt.get(i)), strMessagefortxt.get(i)));
+					if (c >= Chatmessage.get(listentry.get(b)).size()) {
+						Chatmessage.get(names.get(i))
+								.add(messagetxt(datetxt(datefortxt.get(i)), strMessagefortxt.get(i)));
 						break;
 					}
 				}
@@ -231,6 +286,15 @@ public class DataReaderForTXT extends DataReader {
 		}
 	}
 
+	/**
+	 * This is changetxt method.</br>
+	 * This method change message if the message matches
+	 * pattern(([0-9]+):([0-9]+):([0-9]+)\s(.+)).</br>
+	 * Then, the revised message return.
+	 * 
+	 * @param Line
+	 * @return
+	 */
 	public String changecsvtxt(String Line) {
 		String csvtotxt = "";
 		if (Line.matches("([0-9]+):([0-9]+):([0-9]+)\\s(.+)")) {

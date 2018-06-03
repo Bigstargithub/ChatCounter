@@ -12,7 +12,7 @@ plugins {
 }
 
 apply plugin: 'application'
-mainClassName = "edu.handong.csee.java.ChatCounter"
+mainClassName = "edu.handong.csee.java.Chatcounter.DataReader"
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.

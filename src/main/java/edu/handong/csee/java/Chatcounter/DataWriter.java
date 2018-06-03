@@ -13,8 +13,24 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+/**
+ * This is public class, DataWriter.</br>
+ * This class will implement write file in reference to hashmap(Chatcounter).
+ * 
+ * @author Bigstar
+ *
+ */
 public class DataWriter {
 
+	/**
+	 * This is public method, Printoutput.</br>
+	 * This method writes the file in reference to hashmap(Chatcounter).
+	 * 
+	 * @param lines
+	 * @param targetFileName
+	 * @return
+	 * @throws IOException
+	 */
 	public ArrayList<String> Printoutput(HashMap<String, Integer> lines, String targetFileName) throws IOException {
 		ArrayList<String> Print = new ArrayList<String>();
 		try {
@@ -25,19 +41,20 @@ public class DataWriter {
 
 			Iterator iterator = lines.entrySet().iterator();
 			Entry entry;
-			
+
 			while (iterator.hasNext()) {
-				String name = (String) iterator.next();
+				entry = (Entry) iterator.next();
+				String name = (String) entry.getKey();
 				printwriter.println(name + ":" + lines.get(name));
 				Print.add(name + ":" + lines.get(name));
 			}
 			printwriter.flush();
 			printwriter.close();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return Print;
 	}
-           
+
 }
