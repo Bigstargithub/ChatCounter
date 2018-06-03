@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.Scanner;
 import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.IOException;
