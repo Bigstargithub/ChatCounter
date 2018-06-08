@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map.Entry;
@@ -24,9 +26,7 @@ public class DataReader {
 
 	static ArrayList<String> names = new ArrayList(); // txt file name arrayList, names.
 	static ArrayList<String> names2 = new ArrayList(); // ArrayList that is filtered overlapping names. names2
-	static HashMap<String, ArrayList<String>> Chatmessage = new HashMap<String, ArrayList<String>>(); // save the
-																										// message,
-																										// Chatmessage.
+	static HashMap<String, ArrayList<String>> Chatmessage = new HashMap<String, ArrayList<String>>(); // save the message,Chatmessage.			
 	static HashMap<String, Integer> Chatcounter = new HashMap<String, Integer>(); // count the message, ChatCounter.
 	static ArrayList<String> listentry = new ArrayList<String>(); // save the key of Hashmap, listentry
 	int b;
@@ -34,6 +34,7 @@ public class DataReader {
 
 	/**
 	 * This is a main method.
+	 * This main method uses thread to read a files.
 	 * 
 	 * @param args
 	 * @throws IOException
@@ -42,66 +43,26 @@ public class DataReader {
 
 		DataReader dataread = new DataReader();
 
-		try {
-			CLIPrinter clip = new CLIPrinter();
-			clip.run(args);
-			if (clip.getfilepath() == null) {
-				// throw new NullPointerException();
-			}
-			dataread.run(clip.getfilepath());
-			Chatcounter = dataread.sortvalue(Chatcounter);
-			DataWriter datawriter = new DataWriter();
-			datawriter.Printoutput(Chatcounter, clip.getfilename());
+		CLIPrinter clip = new CLIPrinter();
+		clip.run(args);
+		if (clip.getfilepath() == null) {
+			// throw new NullPointerException();
 		}
-
-		catch (IOException e) {
-			System.out.println(e);
+		int numOfCoresilnMyCPU = Integer.parseInt(clip.getaNumberofThread());
+		ExecutorService executor = Executors.newFixedThreadPool(numOfCoresilnMyCPU);
+		Runnable worker = new ThreadRead(clip.getfilename(),clip.getfilepath());
+		executor.execute(worker);
+		
+		executor.shutdown();
+		
+		while(!executor.isTerminated())
+		{
+			
 		}
-
-	}
-
-	/**
-	 * This is a run method.</br>
-	 * The run method read a Chat message in csv file and txt file.</br>
-	 * And The result is put the Hashmap.
-	 * 
-	 * @param r1
-	 * @throws IOException
-	 */
-	public void run(String r1) throws IOException {
-		DataReader mydata = new DataReader();
-		MessageFilter messagefilt = new MessageFilter();
-
-		ArrayList<String> r2 = mydata.getdata(r1);
-
-		DataReaderForTXT datafortxt = new DataReaderForTXT();
-		DataReaderForCSV dataforcsv = new DataReaderForCSV();
-
-		for (int i = 0; i < r2.size(); i++) {
-			String r3 = r2.get(i).substring(r2.get(i).length() - 3, r2.get(i).length());
-			// System.out.println(r3);
-
-			if (r3.equals("csv")) {
-				File file = new File(r2.get(i));
-				dataforcsv.readcsv(file.getPath());
-				messagefilt.WhatFiles(dataforcsv);
-				dataforcsv.addHashmap();
-			}
-
-		}
-		for (int j = 0; j < r2.size(); j++) {
-			String r3 = r2.get(j).substring(r2.get(j).length() - 3, r2.get(j).length());
-			if (r3.equals("txt")) {
-
-				File file = new File(r2.get(j));
-				datafortxt.readtxt(file.getPath());
-				messagefilt.WhatFiles(datafortxt);
-				datafortxt.addHashMaptxt();
-			}
-		}
-		for (int d = 0; d < listentry.size(); d++) {
-			Chatcounter.put(listentry.get(d), Chatmessage.get(listentry.get(d)).size());
-		}
+		//dataread.run(clip.getfilepath());
+		//Chatcounter = dataread.sortvalue(Chatcounter);
+		//DataWriter datawriter = new DataWriter();
+		//datawriter.Printoutput(Chatcounter, clip.getfilename());
 
 	}
 

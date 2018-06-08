@@ -18,6 +18,7 @@ public class CLIPrinter {
 
 	String filePath;
 	String filename;
+	String getNumberofthread;
 	boolean help;
 	boolean verbose;
 
@@ -53,6 +54,7 @@ public class CLIPrinter {
 
 			filePath = cmd.getOptionValue("i");
 			filename = cmd.getOptionValue("o");
+			getNumberofthread = cmd.getOptionValue("c");
 			help = cmd.hasOption("h");
 		}
 
@@ -72,6 +74,9 @@ public class CLIPrinter {
 	private Options createOptions() {
 		Options options = new Options();
 
+		options.addOption(Option.builder("c").longOpt("getNumberofthread").desc("Set a number of thread")
+				.hasArg().argName("A number of thread").required().build());
+		
 		options.addOption(Option.builder("i").longOpt("filePath").desc("Set a path of a directory or a file to display")
 				.hasArg().argName("Path name to display").required().build());
 
@@ -116,4 +121,13 @@ public class CLIPrinter {
 		return filename;
 	}
 
+	/**
+	 * This is public method, getaNumberofThread.
+	 * This method will get how many thread use.
+	 * @return
+	 */
+	public String getaNumberofThread()
+	{
+		return getNumberofthread;
+	}
 }
