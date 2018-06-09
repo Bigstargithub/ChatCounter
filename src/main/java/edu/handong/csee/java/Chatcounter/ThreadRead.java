@@ -22,10 +22,9 @@ public class ThreadRead extends DataReader implements Runnable {
 	 * @param filename
 	 * @param filepath
 	 */
-	public ThreadRead(String filename, String filepath)
+	public ThreadRead(String filepath)
 	{
 		this.filepath = filepath;
-		this.filename = filename;
 	}
 
 	/**
@@ -41,44 +40,36 @@ public class ThreadRead extends DataReader implements Runnable {
 		DataReader mydata = new DataReader();
 		MessageFilter messagefilt = new MessageFilter();
 
-		ArrayList<String> r2 = mydata.getdata(filepath);
 
 		DataReaderForTXT datafortxt = new DataReaderForTXT();
 		DataReaderForCSV dataforcsv = new DataReaderForCSV();
 
 		try
 		{
-		for (int i = 0; i < r2.size(); i++) {
-			String r3 = r2.get(i).substring(r2.get(i).length() - 3, r2.get(i).length());
+			String r3 = filepath.substring(filepath.length()-3, filepath.length());
 			// System.out.println(r3);
 
+			//System.out.println(r3);
 			if (r3.equals("csv")) {
-				File file = new File(r2.get(i));
+				File file = new File(filepath);
 				dataforcsv.readcsv(file.getPath());
 				messagefilt.WhatFiles(dataforcsv);
 				dataforcsv.addHashmap();
 			}
-
-		}
-		for (int j = 0; j < r2.size(); j++) {
-			String r3 = r2.get(j).substring(r2.get(j).length() - 3, r2.get(j).length());
+		
 			if (r3.equals("txt")) {
-
-				File file = new File(r2.get(j));
+				File file = new File(filepath);
 				datafortxt.readtxt(file.getPath());
 				messagefilt.WhatFiles(datafortxt);
 				datafortxt.addHashMaptxt();
 			}
-		}
+		
 		for (int d = 0; d < listentry.size(); d++) {
 			Chatcounter.put(listentry.get(d), Chatmessage.get(listentry.get(d)).size());
 		}
-	    Chatcounter = mydata.sortvalue(Chatcounter);
-		System.out.println(Chatcounter);
-		DataWriter datawrite = new DataWriter();
-		datawrite.Printoutput(Chatcounter, filename);
+	    
 		}
-		catch (IOException e)
+		catch(IOException e)
 		{
 			System.out.println(e);
 		}

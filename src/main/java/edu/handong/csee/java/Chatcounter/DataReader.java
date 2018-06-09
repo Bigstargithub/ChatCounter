@@ -26,15 +26,15 @@ public class DataReader {
 
 	static ArrayList<String> names = new ArrayList(); // txt file name arrayList, names.
 	static ArrayList<String> names2 = new ArrayList(); // ArrayList that is filtered overlapping names. names2
-	static HashMap<String, ArrayList<String>> Chatmessage = new HashMap<String, ArrayList<String>>(); // save the message,Chatmessage.			
+	static HashMap<String, ArrayList<String>> Chatmessage = new HashMap<String, ArrayList<String>>(); // save the
+																										// message,Chatmessage.
 	static HashMap<String, Integer> Chatcounter = new HashMap<String, Integer>(); // count the message, ChatCounter.
 	static ArrayList<String> listentry = new ArrayList<String>(); // save the key of Hashmap, listentry
 	int b;
 	int a;
 
 	/**
-	 * This is a main method.
-	 * This main method uses thread to read a files.
+	 * This is a main method. This main method uses thread to read a files.
 	 * 
 	 * @param args
 	 * @throws IOException
@@ -44,26 +44,35 @@ public class DataReader {
 		DataReader dataread = new DataReader();
 
 		CLIPrinter clip = new CLIPrinter();
+
 		clip.run(args);
 		if (clip.getfilepath() == null) {
 			// throw new NullPointerException();
 		}
-		int numOfCoresilnMyCPU = Integer.parseInt(clip.getaNumberofThread());
-		ExecutorService executor = Executors.newFixedThreadPool(numOfCoresilnMyCPU);
-		Runnable worker = new ThreadRead(clip.getfilename(),clip.getfilepath());
-		executor.execute(worker);
-		
-		executor.shutdown();
-		
-		while(!executor.isTerminated())
-		{
-			
-		}
-		//dataread.run(clip.getfilepath());
-		//Chatcounter = dataread.sortvalue(Chatcounter);
-		//DataWriter datawriter = new DataWriter();
-		//datawriter.Printoutput(Chatcounter, clip.getfilename());
+		ArrayList<ThreadRead> r2 = new ArrayList<ThreadRead>();
+		ArrayList<String> r3 = dataread.getdata(clip.getfilepath());
+		r3 = dataread.filesort(r3);
+		int numOfCoresinMyCPU = Integer.parseInt(clip.getaNumberofThread());
+		ExecutorService executor = Executors.newFixedThreadPool(numOfCoresinMyCPU);
 
+		for (int g = 0; g < r3.size(); g++) {
+			Runnable worker = new ThreadRead(r3.get(g));
+			executor.execute(worker);
+			r2.add((ThreadRead) worker);
+		}
+		executor.shutdown();
+
+		while (!executor.isTerminated()) {
+
+		}
+		// dataread.run(clip.getfilepath());
+		// Chatcounter = dataread.sortvalue(Chatcounter);
+		// DataWriter datawriter = new DataWriter();
+		// datawriter.Printoutput(Chatcounter, clip.getfilename());
+		Chatcounter = dataread.sortvalue(Chatcounter);
+		System.out.println(Chatcounter);
+		DataWriter datawrite = new DataWriter();
+		datawrite.Printoutput(Chatcounter, clip.getfilename());
 	}
 
 	/**
@@ -166,6 +175,36 @@ public class DataReader {
 			temp.put(tempname[n], tempnum[n]);
 		}
 		return temp;
+	}
+
+	public ArrayList<String> filesort(ArrayList<String> r3) {
+		ArrayList<String> a3 = new ArrayList<String>();
+		String[] a2 = new String[20];
+		String a1;
+		for (int e = 0; e < r3.size(); e++) {
+			a2[e] = r3.get(e);
+		}
+
+		for (int f = 0; f < a2.length; f++) {
+			for (int t = f + 1; t < a2.length; t++) {
+				if (a2[f].substring(a2[f].length() - 3, a2[f].length()).equals("csv")) {
+					break;
+				}
+					else if (a2[t].substring(a2[t].length() - 3, a2[t].length()).equals("csv")) {
+						a1 = a2[f];
+						a2[f] = a2[t];
+						a2[t] = a1;
+					}
+
+				}
+			
+			}
+			
+
+		for (int w = 0; w < a2.length; w++) {
+			a3.add(a2[w]);
+		}
+		return a3;
 	}
 
 }
